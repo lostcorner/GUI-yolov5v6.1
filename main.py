@@ -548,7 +548,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         with open(config_file, 'w', encoding='utf-8') as f:
             f.write(config_json)
         MessageBox(
-            self.closeButton, title='提示', text='请稍等，正在关闭程序...', time=2000, auto=True).exec_()
+            self.closeButton, title='提示', text='请稍等，正在关闭程序……', time=2000, auto=True).exec_()
         sys.exit(0)
 
 

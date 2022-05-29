@@ -179,7 +179,7 @@ class DetThread(QThread):
 
 
                     # Apply NMS
-                    pred = torch.unsqueeze(pred, 0) # 报错，根�? https://github.com/ultralytics/yolov5/issues/4430 进行修改
+                    pred = torch.unsqueeze(pred, 0) # 报错，根据 https://github.com/ultralytics/yolov5/issues/4430 进行修改
                     pred = non_max_suppression(pred, self.conf_thres, self.iou_thres, classes, agnostic_nms, max_det=max_det)
 
                     # Process detections
@@ -318,7 +318,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         try:
             self.stop()
             MessageBox(
-                self.closeButton, title='提示', text='请稍等，正在加载rtsp视频�?', time=1000, auto=True).exec_()
+                self.closeButton, title='提示', text='请稍等，正在加载rtsp视频流', time=1000, auto=True).exec_()
             self.det_thread.source = ip
             new_config = {"ip": ip}
             new_json = json.dumps(new_config, ensure_ascii=False, indent=2)
@@ -429,7 +429,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
     def change_model(self, x):
         self.model_type = self.comboBox.currentText()
         self.det_thread.weights = "./pt/%s" % self.model_type
-        self.statistic_msg('模型切换�?%s' % x)
+        self.statistic_msg('模型切换为%s' % x)
 
     def open_file(self):
         # source = QFileDialog.getOpenFileName(self, '选取视频或图片', os.getcwd(), "Pic File(*.mp4 *.mkv *.avi *.flv "
@@ -528,7 +528,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
             self.resultWidget.clear()
             statistic_dic = sorted(statistic_dic.items(), key=lambda x: x[1], reverse=True)
             statistic_dic = [i for i in statistic_dic if i[1] > 0]
-            results = [' '+str(i[0]) + '�?' + str(i[1]) for i in statistic_dic]
+            results = [' '+str(i[0]) + '：' + str(i[1]) for i in statistic_dic]
             self.resultWidget.addItems(results)
 
         except Exception as e:
@@ -548,7 +548,7 @@ class MainWindow(QMainWindow, Ui_mainWindow):
         with open(config_file, 'w', encoding='utf-8') as f:
             f.write(config_json)
         MessageBox(
-            self.closeButton, title='提示', text='请稍等，正在关闭程序。。�?', time=2000, auto=True).exec_()
+            self.closeButton, title='提示', text='请稍等，正在关闭程序...', time=2000, auto=True).exec_()
         sys.exit(0)
 
 
